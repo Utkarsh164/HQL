@@ -20,7 +20,11 @@ public class Hql1Application {
 		SessionFactory sf = new Configuration().addAnnotatedClass(Laptop.class).configure().buildSessionFactory();
 		Session session = sf.openSession();
 
-		Query query = session.createQuery("from Laptop where lModal='Lenovo'", Laptop.class);
+		//Query query = session.createQuery("from Laptop where lModal='Lenovo'", Laptop.class);
+		
+		String brand="Lenovo";
+		Query query = session.createQuery("from Laptop where lModal=?1", Laptop.class);
+		query.setParameter(1,brand);
 		List<Laptop> lap = query.getResultList();
 		// Laptop std = session.find(Laptop.class, 2);
 		System.out.println("IBMer hql : " + lap);
