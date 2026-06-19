@@ -22,11 +22,21 @@ public class Hql1Application {
 
 		//Query query = session.createQuery("from Laptop where lModal='Lenovo'", Laptop.class);
 		
+		//For external parameter so that we do not have to get caut up in that quets issue
 		String brand="Lenovo";
 		Query query = session.createQuery("from Laptop where lModal=?1", Laptop.class);
+		
+		//in case we want to use anything other than select *
+		//Query query = session.createQuery("select lPrice from Laptop where lModal=?1", Laptop.class);
+		
 		query.setParameter(1,brand);
 		List<Laptop> lap = query.getResultList();
+		
+		//Eager Loading
 		// Laptop std = session.find(Laptop.class, 2);
+		
+		//Lazy Loading
+		Laptop std=session.byId(Laptop.class).getReference(2);
 		System.out.println("IBMer hql : " + lap);
 		session.close();
 		sf.close();
